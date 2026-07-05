@@ -6,21 +6,25 @@ function borrowBook(memberId, bookId) {
   try {
     let membersData = r.read("./data/member/" + memberId + ".json");
     let booksData = r.read("./data/book/" + bookId + ".json");
-    console.log(booksData);
-    console.log(membersData);
+    let reserveData = r.read("./data/reserve/" + bookId + ".json");
 
-    if (booksData["AvailableCopies"] > 0) {
-      if (membersData["borrowLimit"] > 0) {
-        booksData["AvailableCopies"] = booksData["AvailableCopies"] - 1;
-        membersData["borrowLimit"] = membersData["borrowLimit"] - 1;
+    if (reserveData.length == 0) {
+      if (booksData["AvailableCopies"] > 0) {
+        if (membersData["borrowLimit"] > 0) {
+          booksData["AvailableCopies"] = booksData["AvailableCopies"] - 1;
+          membersData["borrowLimit"] = membersData["borrowLimit"] - 1;
 
-        let borrowId = memberId + bookId;
-        let data = new brr(memberId, bookId);
+          let borrowId = memberId + bookId;
+          let data = new brr(memberId, bookId);
 
-        w.write("./data/book/" + bookId + ".json", booksData);
-        w.write("./data/member/" + memberId + ".json", membersData);
-        w.write("./data/borrow/" + memberId + bookId + ".json", data);
+          w.write("./data/book/" + bookId + ".json", booksData);
+          w.write("./data/member/" + memberId + ".json", membersData);
+          w.write("./data/borrow/" + memberId + bookId + ".json", data);
+        }
       }
+    } else{
+      console.log("cannot issue book cause of reservations");
+      throw new Error("Need reservation");
     }
 
     console.log("book issued successfully");
