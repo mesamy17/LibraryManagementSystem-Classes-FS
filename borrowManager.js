@@ -1,5 +1,6 @@
 const r = require("./readData");
 const w = require("./writeData");
+const brr = require("./borrowRecord");
 
 function borrowBook(memberId, bookId) {
   try {
@@ -7,7 +8,6 @@ function borrowBook(memberId, bookId) {
     let booksData = r.read("./data/book/" + bookId + ".json", bookId);
     console.log(booksData);
     console.log(membersData);
-    console.log(membersData["borrowLimit"]);
 
     if (booksData["AvailableCopies"] > 0) {
       if (membersData["borrowLimit"] > 0) {
@@ -15,7 +15,7 @@ function borrowBook(memberId, bookId) {
         membersData["borrowLimit"] = membersData["borrowLimit"] - 1;
 
         let borrowId = memberId + bookId;
-        let data = { borrowId, membersData, booksData };
+        let data = new brr(memberId, bookId);
 
         w.write("./data/book/" + bookId + ".json", booksData);
         w.write("./data/member/" + memberId + ".json", membersData);
