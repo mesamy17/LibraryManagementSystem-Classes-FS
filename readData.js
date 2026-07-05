@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-function read(fileName, id) {
+function read(fileName) {
   try {
     if (!fs.existsSync(fileName)) {
       return null;
