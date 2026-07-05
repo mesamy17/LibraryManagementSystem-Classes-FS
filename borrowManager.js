@@ -4,8 +4,8 @@ const brr = require("./borrowRecord");
 
 function borrowBook(memberId, bookId) {
   try {
-    let membersData = r.read("./data/member/" + memberId + ".json", memberId);
-    let booksData = r.read("./data/book/" + bookId + ".json", bookId);
+    let membersData = r.read("./data/member/" + memberId + ".json");
+    let booksData = r.read("./data/book/" + bookId + ".json");
     console.log(booksData);
     console.log(membersData);
 
