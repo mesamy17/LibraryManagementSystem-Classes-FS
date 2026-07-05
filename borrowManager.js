@@ -1,6 +1,8 @@
 const r = require("./readData");
 const w = require("./writeData");
 const brr = require("./borrowRecord");
+const a = require("./addData");
+const { error } = require("node:console");
 
 function borrowBook(memberId, bookId) {
   try {
@@ -24,12 +26,15 @@ function borrowBook(memberId, bookId) {
         throw new Error("Unavailable limit");
       }
     } else {
-      console.log("cannot issue book cause of unavailable copies");
-      throw new Error("No more copies in shelf");
+      a.add("./data/reserve/" + bookId + ".json", memberId);
+      console.log("added member in reserve que");
+      throw error("book unavailable");
     }
 
     console.log("book issued successfully");
-  } catch (error) {}
+  } catch (error) {
+    console.log("book not issued");
+  }
 }
 
 module.exports = { borrowBook };
