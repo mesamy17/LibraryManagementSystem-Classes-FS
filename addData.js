@@ -11,7 +11,16 @@ function add(fileName, fileData) {
       for (let i = 0; i < data.length; i++) {
         finalData.push(data[i]);
       }
-      finalData.push(fileData);
+
+      let out = finalData.some(function (member) {
+        return member == fileData;
+      });
+
+      if (out != true) {
+        finalData.push(fileData);
+      } else {
+        console.log("Member already in reserve");
+      }
     }
 
     fs.writeFileSync(fileName, JSON.stringify(finalData, null, 4));
