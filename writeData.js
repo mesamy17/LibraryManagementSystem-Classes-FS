@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-function write(fileName, data) {
+function write(fileName, fileData) {
   try {
     fs.writeFileSync(fileName, JSON.stringify(fileData, null, 4));
 
