@@ -7,13 +7,7 @@ function read(fileName, id) {
     }
 
     let data = JSON.parse(fs.readFileSync(fileName, "utf8"));
-
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].id == id) {
-        let returnData = data[i];
-        return returnData;
-      }
-    }
+    return data;
   } catch (error) {
     console.log("error extracting data from : ", fileName);
     return null;
