@@ -4,7 +4,7 @@ class BorrowRecord {
     this.memberId = memberId;
     this.bookId = bookId;
     this.borrowDate = new Date();
-    this.dueDate = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
+    this.dueDate = new Date(Date.now() + 1209600000);
   }
 }
 
