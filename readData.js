@@ -9,7 +9,7 @@ function read(fileName) {
     let data = JSON.parse(fs.readFileSync(fileName, "utf8"));
     return data;
   } catch (error) {
-    console.log("error extracting data from : ", fileName);
+    console.log("Un-existing Data : ", fileName);
     return null;
   }
 }

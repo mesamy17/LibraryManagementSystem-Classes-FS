@@ -2,7 +2,6 @@ const r = require("./readData");
 const w = require("./writeData");
 const brr = require("./borrowRecord");
 const a = require("./addData");
-const { error } = require("node:console");
 
 function borrowBook(memberId, bookId) {
   try {
