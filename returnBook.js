@@ -1,6 +1,7 @@
 const r = require("./readData");
 const w = require("./writeData");
 const b = require("./borrowManager");
+const calc = require("./lateFee");
 
 function returnBook(memberId, bookId) {
   let memberData = r.read("./data/member/" + memberId + ".json");
@@ -16,7 +17,10 @@ function returnBook(memberId, bookId) {
   w.write("./data/member/" + memberId + ".json", memberData);
   w.write("./data/borrow/" + memberId + bookId + ".json", borrowData);
 
+  calc.feeCalc(memberId, bookId);
+
   let reserveData = r.read("./data/reserve/" + bookId + ".json");
+
   if (reserveData == null) {
     console.log("No reservations");
   } else {
