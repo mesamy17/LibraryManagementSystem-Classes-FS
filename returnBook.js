@@ -27,7 +27,7 @@ function returnBook(memberId, bookId, returnDate) {
   } else {
     if (reserveData.length > 0) {
       let nextId = reserveData[0];
-      reserveData.splice(0);
+      reserveData.shift();
       w.write("./data/reserve/" + bookId + ".json", reserveData);
       b.borrowBook(nextId, bookId);
     }
