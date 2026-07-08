@@ -3,14 +3,15 @@ const w = require("./writeData");
 const b = require("./borrowManager");
 const calc = require("./lateFee");
 
-function returnBook(memberId, bookId) {
+function returnBook(memberId, bookId, returnDate) {
   let memberData = r.read("./data/member/" + memberId + ".json");
   let bookData = r.read("./data/book/" + bookId + ".json");
   let borrowData = r.read("./data/borrow/" + memberId + bookId + ".json");
 
+  let dat = new Date(returnDate);
   memberData["borrowLimit"] = memberData["borrowLimit"] + 1;
   bookData["AvailableCopies"] = bookData["AvailableCopies"] + 1;
-  borrowData.returnDate = new Date();
+  borrowData.returnDate = dat;
   borrowData.returnStatus = "RETURNED";
 
   w.write("./data/book/" + bookId + ".json", bookData);
