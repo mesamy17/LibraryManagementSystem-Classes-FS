@@ -10,7 +10,7 @@ function addMember(MemberId, MemberName, MembershipType) {
     console.log("member crated successfully");
     console.log(data);
   } catch (error) {
-    console.log("unable to crate member");
+    console.log("unable to create member");
   }
 }
 
